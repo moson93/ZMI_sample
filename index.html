@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Mo son map</title>
+    <title>Zanzibar Cultural Sites</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
@@ -12,16 +12,245 @@
     </style>
 </head>
 <body>
+<style>
+#map {
+    position: fixed;
+    width:70%;
+}
+#features {
+    width: 30%;
+    margin-left: 70%;
+    font-family: sans-serif;
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+section {
+    padding:  25px 50px;
+    line-height: 25px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+    font-size: 13px;
+}
+section.active {
+    opacity: 1;
+}
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 500px;
+}
+#img{
+    width:100%;
+    height: 200px;
+}
+#menu {
+        position: fixed;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
 
 <div id='map'></div>
+
+<div id='menu'>
+    <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+    <label for='basic'>basic</label>
+    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+    <label for='satellite'>satellite</label>
+    <input id='zmi' type='radio' name='rtoggle' value='zmi'>
+    <label for='satellite'>ZMI</label>
+</div>
+
+<div id='features'>
+    <section id='cathedral' class='active'>
+        <h3>Anglican Cathedral</h3>
+        <p>"The Christ Church (or Church of Christ) is an Anglican cathedral in Stone Town, Zanzibar, Tanzania. It belongs to the Anglican Church of Tanzania. It is a landmark historical church,[1] as well as one of the most prominent examples of early Christian architecture in East Africa. It was built in seven years, the foundation stone being laid on Christmas Day 1873 until the opening on Christmas 1879, based on a vision of Edward Steere, third Anglican bishop of Zanzibar, who actively contributed to the design. As most buildings in Stone Town, it is made mostly of coral stone. It has a unique concrete roof shaped in an unusual barrel vault (that was Steere's idea) and the overall structure mixes Perpendicular Gothic and Islamic details.[4] The cathedral was consecrated in 1903 and named after the Canterbury Cathedral.</p>
+        <img src="anglican.jpg" alt="Anglican Cathedral" id="img">
+    </section>
+    <section id='bamnara'>
+        <h3>Bamnara Mosque</h3>
+        <p>Malindi Mosque is a mosque in Stone Town, Zanzibar, located near the port.[1] It is one of the oldest mosques in Zanzibar, dated to the 15th century.[2] It was built by Sunni Muslims and it has some unusual architectural features, including a cone-shaped minaret (one of just three minarets of this shape in East Africa) and a square platform.</p>
+        <img src="bamnara.jpg" alt="Bamnara mosque" id="img">
+    </section>
+    <section id='khole'>
+        <h3>Bi Khole</h3>
+        <p>“Bi” (Swahili for ‘Lady’) Khole was one of Sultan Said’s daughters and with her wealth had an estate built as an out of town getaway. Local rumour has it that Khole planted one tree for each of her lovers. The Palace overlooked the ocean and is surrounded by fields of Mango trees.” </p>
+        <img src="khole.jpg" alt="Bi Khole" id="img">
+    </section>
+    <section id='chwaka'>
+        <h3>Chwaka</h3>
+        <p>Chwaka Bay is an intertidal water body on the east coast of Unguja Island, Zanzibar, Tanzania. The area contains all three critical marine habitats namely mangroves, seagrasses and coral reefs; its mangrove being the largest single mangrove forest in Unguja Island. The ecological importance of Chwaka Bay cannot be overestimated.</p>
+        <img src="chwaka.jpg" alt="Chwaka Bay" id="img">
+    </section>
+    <section id='dunga'>
+        <h3>Dunga</h3>
+        <p>This is a palace that was built for Mwinyi Mkuu (the Great Chief) Ahmed Bin Mohammed Hassan. He was the Swahili Ruler of Zanzibar in the 18th Century, before the Oman occupation. The main walls of the palace are still standing. The original royal splendor, pillars, stair cases, old passages and archways are all visible today.</p>
+        <img src="dunga.jpg" alt="Dunga" id="img">
+    </section>
+    <section id='wonders'>
+        <h3>House of Wonders</h3>
+        <p>CLOSED for renovation. A landmark building in Stone Town, Zanzibar. It is the largest and tallest building of Stone Town and occupies a prominent place facing the Forodhani Gardens on the old town's seafront, in Mizingani Road. It is located between the Old Fort and the Palace Museum (and former Sultan's Palace). It is one of six palaces built by Barghash bin Said, second Sultan of Zanzibar, and it is said to be located on the site of the 17th-century palace of Zanzibari queen Fatuma. The House of Wonders currently houses the Museum of History and Culture of Zanzibar and the Swahili Coast.</p>
+        <img src="wonders.jpg" alt="House of Wonders" id="img">
+    </section>
+    <section id='prison'>
+        <h3>Prison (Changuu) Island</h3>
+        <p>Prison (Changuu) Island a small island 5.6 km north-west of Stone Town, Unguja, Zanzibar. The island saw use as a prison for rebellious slaves in 1860s and also functioned as a coral mine. The British First Minister of Zanzibar, Lloyd Mathews, purchased the island in 1893 and constructed a prison complex there. No prisoners were ever housed on the island and instead it became a quarantine station for yellow fever cases. More recently, the island has become a government-owned tourist resort and houses a collection of endangered Aldabra giant tortoises which were originally a gift from the British governor of the Seychelles.</p>
+        <img src="island.jpg" alt="Prison (Changuu) Island" id="img">
+    </section>
+
+</div>
+
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoibW9zb245MyIsImEiOiJjamxlcDY4eHAwbWtkM3JxdWN6djA0dzE4In0.g_wB76rx0gRqKDN7KGyyVg';
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGlsbHM5NSIsImEiOiJjajI5YjM4YjQwMDR5MzNwam0yYmx0M2d1In0.S-Ch7EFnBYY76pAAVjUK4g';
+
+// Set bounds to Zanzibar
+var bounds = [
+    [33.42041015625, -9.925565912405494], // Southwest coordinates
+    [45.703125, -1.5159363834516735]  // Northeast coordinates
+];
+
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/moson93/cjlj83irl1xs32sqqna6rl7yg', // stylesheet location
-    center: [39.18960839509964,-6.161710243135955], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    style: 'mapbox://styles/hills95/cjlklf0yn37mx2sqqty08wxvr', // stylesheet location
+    center: [39.199562072753906, -6.165472962780473], // starting position [lng, lat]
+    zoom: 7.6, // starting zoom
+    bearing: 27,
+    pitch: 45
+    //maxBounds: bounds // Sets bounds as max
 });
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+map.on('load', function() {
+  // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  });
+  var x="Entry: ";
+
+  function showPopup(e) {
+    // Updates the cursor to a hand (interactivity)
+    map.getCanvas().style.cursor = 'pointer';
+    // Show the popup at the coordinates with some data
+    popup.setLngLat(e.features[0].geometry.coordinates)
+
+      .setHTML("<center><strong>"+checkEmpty(e.features[0].properties.SITE)+"</strong></center><br><center>"+x + checkEmpty(e.features[0].properties.ACCESS)+"</center>")
+      .addTo(map);
+  }
+  function hidePopup() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  }
+  function checkEmpty(info) {
+    return (info) ? info : "No data";
+  }
+// CHANGE: Add layer names that need to be interactive
+  map.on('mouseenter', 'zanzibar-heritage', showPopup);
+  map.on('mouseleave', 'zanzibar-heritage', hidePopup);
+});
+
+var chapters = {
+    'cathedral': {
+        bearing: 27,
+        center: [39.19243333, -6.16318333],
+        zoom: 20,
+        pitch: 20
+    },
+    'bamnara': {
+        duration: 6000,
+        center: [39.19498333, -6.1578],
+        bearing: 150,
+        zoom: 20,
+        pitch: 0
+    },
+    'khole': {
+        bearing: 90,
+        center: [39.33451667, -6.26278333],
+        zoom: 20,
+        speed: 0.6,
+        pitch: 40
+    },
+    'chwaka': {
+        bearing: 90,
+        center: [39.43663333, -6.16576667],
+        zoom: 20
+    },
+    'dunga': {
+        bearing: 45,
+        center: [39.32613333, -6.14136667],
+        zoom: 20,
+        pitch: 20,
+        speed: 0.5
+    },
+    'wonders': {
+        bearing: 180,
+        center: [39.18968333, -6.16078333],
+        zoom: 20
+    },
+    'prison': {
+        bearing: 90,
+        center: [39.16885, -6.12048333],
+        zoom: 20,
+        pitch: 40
+    }
+};
+
+// On every scroll event, check which element is on screen
+window.onscroll = function() {
+    var chapterNames = Object.keys(chapters);
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+
+var activeChapterName = 'cathedral';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName)
+
+        return;
+
+    map.flyTo(chapters[chapterName]);
+
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+
+    activeChapterName = chapterName;
+}
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
+
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+
+function switchLayer(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/hills95/cjlklf0yn37mx2sqqty08wxvr');
+}
+function switchLayer1(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/hills95/cjlks7br639dl2rn3b5e4mq6i');
+
+}
+function switchLayer2(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/pratikyadav/cjldke8fv3c3r2row6hvk5k7z');
+
+}
+
+    inputs[0].onclick = switchLayer;
+     inputs[1].onclick = switchLayer1;
+     inputs[2].onclick = switchLayer2;
+
+
 </script>
 
 </body>
